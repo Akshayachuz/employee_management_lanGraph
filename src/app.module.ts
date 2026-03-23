@@ -15,6 +15,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EmployeeModule } from './employee/employee.module';
+import { KnowledgeModule } from './RAGDEMO/knowledge/knowledge.module';
+import { RagModule } from './RAGDEMO/rag/rag.module';
 
 @Module({
   imports: [
@@ -24,11 +26,14 @@ import { EmployeeModule } from './employee/employee.module';
       port: 5432,
       username: 'postgres',
       password: 'admin123',  
-      database: 'myprojectdb',
+      // database: 'myprojectdb',
+      database:"rag_db",
       autoLoadEntities: true,
       synchronize: true,
     }),
-    EmployeeModule
+    // EmployeeModule
+    KnowledgeModule,
+    RagModule
   ],
   controllers: [AppController],
   providers: [AppService],
