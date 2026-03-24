@@ -18,10 +18,31 @@ export class RagService {
     private embeddingService: EmbeddingService
   ) { }
 
+  // async search(question: string) {
+
+  //   const queryEmbedding =
+  //     await this.embeddingService.generateEmbeddings(question);
+
+  //   const vector = `[${queryEmbedding.join(",")}]`;
+
+  //   const docs = await this.repo.query(
+  //     `
+  //   SELECT title, content,
+  //   embedding <=> $1::vector AS score
+  //   FROM knowledge
+  //   ORDER BY score
+  //   LIMIT 5
+  //   `,
+  //     [vector]
+  //   );
+
+  //   return docs;
+  // }
+
   async search(question: string) {
 
     const queryEmbedding =
-      await this.embeddingService.generateEmbeddings([question]);
+      (await this.embeddingService.generateEmbeddings(question))[0];
 
     const vector = `[${queryEmbedding.join(",")}]`;
 
@@ -68,43 +89,43 @@ export class RagService {
     return response.choices[0].message.content;
   }
 
-//   async ask(question: string) {
+  //   async ask(question: string) {
 
-//     const docs = await this.search(question);
-//     console.log("Retrieved documents:", docs);
+  //     const docs = await this.search(question);
+  //     console.log("Retrieved documents:", docs);
 
-//     const responses = [];
+  //     const responses = [];
 
-//     for (const doc of docs) {
+  //     for (const doc of docs) {
 
-//       const prompt = `
-// You are a helpful assistant.
+  //       const prompt = `
+  // You are a helpful assistant.
 
-// Answer the question ONLY using the provided context.
+  // Answer the question ONLY using the provided context.
 
-// Context:
-// ${doc.content}
+  // Context:
+  // ${doc.content}
 
-// Question:
-// ${question}
-// `;
+  // Question:
+  // ${question}
+  // `;
 
-//       const response = await this.openai.chat.completions.create({
-//         model: "gpt-4o-mini",
-//         messages: [
-//           { role: "user", content: prompt }
-//         ]
-//       });
+  //       const response = await this.openai.chat.completions.create({
+  //         model: "gpt-4o-mini",
+  //         messages: [
+  //           { role: "user", content: prompt }
+  //         ]
+  //       });
 
-//       responses.push({
-//         source: doc.title,
-//         answer: response.choices[0].message.content
-//       });
-//     }
+  //       responses.push({
+  //         source: doc.title,
+  //         answer: response.choices[0].message.content
+  //       });
+  //     }
 
-//     console.log("Responses:", responses);
+  //     console.log("Responses:", responses);
 
-//     return responses;
-//   }
+  //     return responses;
+  //   }
 
 }

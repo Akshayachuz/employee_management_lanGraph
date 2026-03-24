@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import OpenAI from "openai";
+import { text } from "stream/consumers";
 
 @Injectable()
 export class EmbeddingService {
@@ -8,7 +9,8 @@ export class EmbeddingService {
     apiKey: "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"
   });
 
-  async generateEmbeddings(texts: string[]): Promise<number[][]> {
+  async generateEmbeddings(texts: string | string[]): Promise<number[][]> {
+    console.log("Embedding input:", text);
 
     const response = await this.openai.embeddings.create({
       model: "text-embedding-3-small",
