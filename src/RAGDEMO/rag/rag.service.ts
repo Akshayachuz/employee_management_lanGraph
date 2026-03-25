@@ -4,6 +4,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Knowledge } from "../knowledge/knowledge.entity";
 import { EmbeddingService } from "../embeddings/embedding.service";
+import { MemoryService } from "../memory/memory.service";
 
 @Injectable()
 export class RagService {
@@ -15,7 +16,8 @@ export class RagService {
   constructor(
     @InjectRepository(Knowledge)
     private repo: Repository<Knowledge>,
-    private embeddingService: EmbeddingService
+    private embeddingService: EmbeddingService,
+    private memoryService: MemoryService
   ) { }
 
   // async search(question: string) {
@@ -86,7 +88,19 @@ export class RagService {
       ]
     });
     console.log("OpenAI response:", response.choices[0].message.content);
-    return response.choices[0].message.content;
+
+    const responseText =
+      response.choices[0].message.content ?? "No response generated";
+
+    console.log("OpenAI response:", responseText);
+
+    console.log("Saving memory...");
+
+    await this.memoryService.saveMemory(question, responseText);
+
+    console.log("Memory saved");
+
+    return responseText;
   }
 
   //   async ask(question: string) {
