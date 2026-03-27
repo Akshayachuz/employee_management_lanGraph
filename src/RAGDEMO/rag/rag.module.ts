@@ -14,6 +14,6 @@ import { MemoryService } from '../memory/memory.service';
     TypeOrmModule.forFeature([Knowledge, Memory])
   ],
   controllers: [RagController],
-  providers: [RagService, EmbeddingService, RagToolExecutor, RagToolModel, MemoryService]
+  providers: [RagService, EmbeddingService, RagToolExecutor, RagToolModel, MemoryService],
 })
 export class RagModule {}

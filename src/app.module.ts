@@ -14,7 +14,7 @@ import { ConfigModule } from '@nestjs/config';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'admin123',  
+      password: 'nanonino',  
       // database: 'myprojectdb',
       database:"rag_db",
       autoLoadEntities: true,

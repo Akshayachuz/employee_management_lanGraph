@@ -12,7 +12,7 @@ export class ToolModelGemini {
 
     constructor(private employeeService: EmployeeService) {
         this.ai = new GoogleGenAI({
-            apiKey: "AIzaSyAqRkqFzRd6A1Io0NVrwZESEv9D4WFBLRc"
+            apiKey: process.env.OPENAI_API_KEY
         });
 
         this.executor = new EmployeeToolExecutor(employeeService);

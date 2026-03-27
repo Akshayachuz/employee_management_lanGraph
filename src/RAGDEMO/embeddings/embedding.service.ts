@@ -6,7 +6,7 @@ import { text } from "stream/consumers";
 export class EmbeddingService {
 
   private openai = new OpenAI({
-    apiKey: "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"
+    apiKey: process.env.OPENAI_API_KEY
   });
 
   async generateEmbeddings(texts: string | string[]): Promise<number[][]> {

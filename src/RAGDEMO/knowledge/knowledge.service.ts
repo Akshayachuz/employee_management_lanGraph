@@ -15,7 +15,7 @@ export class KnowledgeService {
     ) { }
 
     // ✅ CHUNK METHOD
-    private chunkText(text: string, size: number = 200): string[] {
+    private chunkText(text: string, size: number = 450): string[] {
         const chunks: string[] = [];
 
         for (let i = 0; i < text.length; i += size) {
@@ -41,6 +41,7 @@ export class KnowledgeService {
 
     //     return chunks;
     // }
+    
 
     // ✅ BULK CREATE METHOD
     async create(data: CreateKnowledgeDto | CreateKnowledgeDto[]) {
